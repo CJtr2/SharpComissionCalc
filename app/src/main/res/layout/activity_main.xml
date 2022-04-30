@@ -108,6 +108,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="Full Body:"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
@@ -121,7 +122,9 @@
                 android:gravity="center"
                 android:hint="#"
                 android:inputType="number"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B6B6B6" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -142,6 +145,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="Half Body: "
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
@@ -149,13 +153,15 @@
                 android:id="@+id/halfBodyNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/halfBodyText"
                 android:background="@color/white"
                 android:ems="3"
                 android:gravity="center"
                 android:hint="#"
                 android:inputType="number"
                 android:minHeight="48dp"
-                tools:layout_below="@id/halfBodyText" />
+                android:textColor="@color/black"
+                android:textColorHint="#B6B6B6" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -177,6 +183,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="Headshot: "
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold|italic" />
 
@@ -190,7 +197,9 @@
                 android:gravity="center"
                 android:hint="#"
                 android:inputType="number"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B6B6B6" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -229,6 +238,7 @@
             android:paddingEnd="10dp">
 
             <LinearLayout
+                android:id="@+id/extrasList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical" />
@@ -285,14 +295,26 @@
         android:background="#673AB7"
         android:padding="5dp">
 
-        <TextView
-            android:id="@+id/pricesText"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#352A49"
-            android:padding="10dp"
-            android:text="TextView"
-            android:textColor="@color/white" />
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pricesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#352A49"
+                    android:padding="10dp"
+                    android:text="TextView"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -332,7 +354,7 @@
                 android:layout_marginTop="5dp"
                 android:background="#352A49"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="6dp"
                 android:text="$ 60"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -364,16 +386,16 @@
                 android:id="@+id/curFlatText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/curFlatTitle"
                 android:layout_alignStart="@id/curFlatTitle"
                 android:layout_alignEnd="@id/curFlatTitle"
                 android:layout_marginTop="5dp"
                 android:background="#352A49"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="6dp"
                 android:text="$ 30"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                tools:layout_below="@id/curFlatTitle" />
+                android:textSize="18sp" />
         </RelativeLayout>
     </RelativeLayout>
 
