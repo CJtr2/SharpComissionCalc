@@ -20,6 +20,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         replace full body/half body/headshot with custom text
+
+
+        each togglable box is a different base price
+        (base price * (body type modifier)) + flat [apply discounts after this]
+
+        # discounts:
+        #full + (#half)*(2/3) + (#head)/2
+        or to make decimal math less dangerous:
+
+        every full
+        every 2nd and 3rd half body
+        every other head
+
+        + floor((#half%3)/3 + (#head%2)/2)
+
+        apply to lowest first
+
         */
     }
 }
