@@ -2,10 +2,11 @@ package com.example.comissioncalc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     //activity declarations=================================
+    public InputMethodManager imm;
+
     public TextView baseText;
     public TextView flatText;
 
@@ -56,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //activity elements declaration
+        //activity elements declaration\
+        imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+
         baseText = findViewById(R.id.curBaseText);
         flatText = findViewById(R.id.curFlatText);
 
@@ -73,9 +78,17 @@ public class MainActivity extends AppCompatActivity {
         calculate = findViewById(R.id.calcBtn);
 
 
-        //internal declarations
+        //internal declarations (will be fetched from config)
         basePrice = 60.0;
         flatPrice = 30.0;
+        discountPer1 = 1;
+        discountpercent = 50;
+
+        hbNumer = 2;
+        hbDenom = 3;
+
+        hsNumer = 1;
+        hsDenom = 2;
 
 
         //do stuff
@@ -86,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnKeyListener updatePrice = (view, keyCode, keyEvent) -> {
             if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
                 updatePriceText();
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 return true;
             }
             return false;
@@ -100,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnFocusChangeListener clearTextFocus = (view, hasFocus) -> {
             if(view instanceof  EditText && hasFocus){
                 ((EditText) view).setText("");
+            }else{
+                updatePriceText();
             }
         };
 
@@ -128,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
         each togglable box is a different base price
         (base price * (body type modifier)) + flat [apply discounts after this]
 
+
+
         # discounts:
         #full + (#half)*(2/3) + (#head)/2
         or to make decimal math less dangerous:
@@ -145,6 +163,74 @@ public class MainActivity extends AppCompatActivity {
 
     public void updatePriceText(){
         String out = "";
-        pricesFieldText.setText("Pressed: ");
+
+        //Data Fetching===========================================
+        String temp = fbEntry.getText().toString();
+        if(temp.equals("")){fb = 0;}
+        else{fb = Integer.parseInt(temp);}
+
+        temp = hbEntry.getText().toString();
+        if(temp.equals("")){hb = 0;}
+        else{hb = Integer.parseInt(temp);}
+
+        temp = hsEntry.getText().toString();
+        if(temp.equals("")){hs = 0;}
+        else{hs = Integer.parseInt(temp);}
+
+
+        //# of Discount Calculation================================
+        int numOfDiscounts = fb;
+
+        for(int i = 1; i <= hb; i++){
+            if(i%hbDenom < hbNumer){
+                numOfDiscounts++;
+            }
+        }
+        for(int j = 1; j <= hs; j++){
+            if(j%hsDenom < hsNumer){
+                numOfDiscounts++;
+            }
+        }
+
+        numOfDiscounts += + Math.floor(((hb*hbNumer)%hbDenom)/((double)hbDenom) + ((hs*hsNumer)%hsDenom)/(double)hsDenom);
+
+        int tempDis = numOfDiscounts;
+        int[] discounts = new int[] {0, 0, 0};
+
+        if(tempDis <= hs){
+            discounts[2] = tempDis;
+        }
+        else{
+            discounts[2] = hs;
+            tempDis -= hs;
+
+            if(tempDis <= hb){
+                discounts[1] = tempDis;
+            }
+            else{
+                discounts[1] = hb;
+                tempDis -= hb;
+                discounts[0] = tempDis;
+            }
+        }
+
+
+        //full body section====================================
+        if(false){
+
+        }
+
+        //half body section====================================
+        if(false){
+
+        }
+
+        //headshot section=====================================
+        if(false){
+
+        }
+
+
+        pricesFieldText.setText(out);
     }
 }
