@@ -7,6 +7,88 @@
     android:background="#424242"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/baseflatContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/pricesContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp">
+
+        <RelativeLayout
+            android:id="@+id/curBaseContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#673AB7"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/curBaseTitle"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#352A49"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="Base Price:"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/curBaseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/curBaseTitle"
+                android:layout_alignStart="@id/curBaseTitle"
+                android:layout_alignEnd="@id/curBaseTitle"
+                android:layout_marginTop="5dp"
+                android:background="#352A49"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="$ 60"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/curFlatContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_toEndOf="@id/curBaseContainer"
+            android:background="#673AB7"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/curFlatTitle"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#352A49"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="Flat Add:"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/curFlatText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/curFlatTitle"
+                android:layout_alignStart="@id/curFlatTitle"
+                android:layout_alignEnd="@id/curFlatTitle"
+                android:layout_marginTop="5dp"
+                android:background="#352A49"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="$ 30"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
     <Button
         android:id="@+id/copyBtn"
         android:layout_width="wrap_content"
@@ -27,63 +109,78 @@
         android:text="Config"
         android:textSize="11sp" />
 
-    <LinearLayout
-        android:id="@+id/shadingTypeContainer"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/shadingBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/pricesContainer"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:layout_above="@id/configBtn"
+        android:layout_alignStart="@id/configBtn"
+        android:layout_alignEnd="@id/configBtn"
+        android:text="Shaded"
+        android:textSize="11sp" />
 
-        <ImageView
-            android:id="@+id/telegramStckrBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
+    <Button
+        android:id="@+id/addExtraBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/calcBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="Add Extra"
+        android:textSize="11sp" />
 
-        <ImageView
-            android:id="@+id/sketchBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
+    <Button
+        android:id="@+id/calcBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/addExtraBtn"
+        android:layout_alignEnd="@id/addExtraBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="17dp"
+        android:paddingBottom="17dp"
+        android:text="Do It"
+        android:textSize="11sp" />
 
-        <ImageView
-            android:id="@+id/linesBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
+    <RelativeLayout
+        android:id="@+id/pricesContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/extrasWindow"
+        android:layout_alignStart="@id/extrasWindow"
+        android:layout_alignTop="@id/numBodiesContainer"
+        android:layout_alignEnd="@id/extrasWindow"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="5dp"
+        android:background="#673AB7"
+        android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/flatsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/celbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/shadedBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
-
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/pricesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#352A49"
+                    android:padding="10dp"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/numBodiesContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/configBtn"
+        android:layout_above="@id/shadingBtn"
         android:layout_alignStart="@id/configBtn"
         android:layout_alignEnd="@id/configBtn"
         android:layout_marginTop="10dp"
@@ -203,16 +300,6 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/addExtraBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/calcBtn"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:text="Add Extra"
-        android:textSize="11sp" />
-
     <RelativeLayout
         android:id="@+id/extrasWindow"
         android:layout_width="wrap_content"
@@ -240,23 +327,10 @@
             <LinearLayout
                 android:id="@+id/extrasList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" />
         </ScrollView>
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/calcBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/addExtraBtn"
-        android:layout_alignEnd="@id/addExtraBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="17dp"
-        android:paddingBottom="17dp"
-        android:text="Do It"
-        android:textSize="11sp" />
 
     <RelativeLayout
         android:id="@+id/finalPriceContainer"
@@ -278,124 +352,89 @@
             android:layout_height="wrap_content"
             android:background="#352A49"
             android:padding="5dp"
-            android:text="TextView"
             android:textColor="@color/white" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/pricesContainer"
+        android:id="@+id/shadingContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/extrasWindow"
-        android:layout_alignStart="@id/extrasWindow"
-        android:layout_alignTop="@id/numBodiesContainer"
-        android:layout_alignEnd="@id/extrasWindow"
-        android:layout_marginTop="-10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#673AB7"
-        android:padding="5dp">
+        android:layout_above="@id/calcBtn"
+        android:layout_marginEnd="7dp"
+        android:layout_toStartOf="@id/copyBtn"
+        android:background="#6A0F69"
+        android:visibility="invisible">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/pricesText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#352A49"
-                    android:padding="10dp"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/baseflatContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/shadingTypeContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp">
-
-        <RelativeLayout
-            android:id="@+id/curBaseContainer"
+        <ImageView
+            android:id="@+id/shadedBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#673AB7"
-            android:padding="5dp">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
 
-            <TextView
-                android:id="@+id/curBaseTitle"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:background="#352A49"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="Base Price:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/curBaseText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/curBaseTitle"
-                android:layout_alignStart="@id/curBaseTitle"
-                android:layout_alignEnd="@id/curBaseTitle"
-                android:layout_marginTop="5dp"
-                android:background="#352A49"
-                android:gravity="center"
-                android:padding="6dp"
-                android:text="$ 60"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/curFlatContainer"
+        <ImageView
+            android:id="@+id/celBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_toEndOf="@id/curBaseContainer"
-            android:background="#673AB7"
-            android:padding="5dp">
+            android:layout_below="@id/shadedBtn"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
 
-            <TextView
-                android:id="@+id/curFlatTitle"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:background="#352A49"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="Flat Add:"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="italic" />
+        <ImageView
+            android:id="@+id/flatsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/celBtn"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
 
-            <TextView
-                android:id="@+id/curFlatText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/curFlatTitle"
-                android:layout_alignStart="@id/curFlatTitle"
-                android:layout_alignEnd="@id/curFlatTitle"
-                android:layout_marginTop="5dp"
-                android:background="#352A49"
-                android:gravity="center"
-                android:padding="6dp"
-                android:text="$ 30"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/linesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flatsBtn"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/sketchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linesBtn"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/tgmStickBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sketchBtn"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -1,17 +1,21 @@
 package com.example.comissioncalc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
     public Button copy;
     public Button addExtra;
     public Button calculate;
+    public Button shading;
+
+    public RelativeLayout shdCtn;
+
+    public ImageView shadedBtn;
+    public ImageView celBtn;
+    public ImageView flatsBtn;
+    public ImageView linesBtn;
+    public ImageView sketchBtn;
+    public ImageView tgmStickBtn;
 
     //internal declarations===============================
     public int fb;
@@ -44,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
     public double basePrice;
     public double flatPrice;
+
+    public double shaded;
+    public double cel;
+    public double flats;
+    public double lines;
+    public double sketch;
+    public double tgmStick;
 
     public int discountPer1;
     public int discountpercent;
@@ -55,11 +76,22 @@ public class MainActivity extends AppCompatActivity {
 
     public double preExtraFinal;
 
+    public ImageView[] shadeArray;
+    public double[] prices;
+    public boolean[] shadeActive;
+    public String[] shadeNames;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initialize declarations
+        preExtraFinal = 0;
+        shadeArray = new ImageView[6];
+        prices = new double[6];
+        shadeActive = new boolean[] {true, false, false, false, false, false};
+        shadeNames = new String[] {"Shaded","Cel","Flats","Lines","Sketch","Tgm"};
 
         //activity elements declaration\
         imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -78,11 +110,30 @@ public class MainActivity extends AppCompatActivity {
         copy = findViewById(R.id.copyBtn);
         addExtra = findViewById(R.id.addExtraBtn);
         calculate = findViewById(R.id.calcBtn);
+        shading = findViewById(R.id.shadingBtn);
 
-        preExtraFinal = 0;
+        shdCtn = findViewById(R.id.shadingContainer);
+
+        shadeArray[0] = shadedBtn = findViewById(R.id.shadedBtn);
+        shadeArray[1] =celBtn = findViewById(R.id.celBtn);
+        shadeArray[2] =flatsBtn = findViewById(R.id.flatsBtn);
+        shadeArray[3] =linesBtn = findViewById(R.id.linesBtn);
+        shadeArray[4] =sketchBtn = findViewById(R.id.sketchBtn);
+        shadeArray[5] =tgmStickBtn = findViewById(R.id.tgmStickBtn);
+
+        shadedBtn.setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_on, null));
+
         //internal declarations (will be fetched from config)
         basePrice = 60.0;
         flatPrice = 30.0;
+
+        prices[0] = shaded = 60;
+        prices[1] = cel = 50;
+        prices[2] = flats = 45;
+        prices[3] = lines = 35;
+        prices[4] = sketch = 25;
+        prices[5] = tgmStick = 50;
+
         discountPer1 = 1;
         discountpercent = 50;
 
@@ -134,12 +185,26 @@ public class MainActivity extends AppCompatActivity {
         hsEntry.setOnFocusChangeListener(clearTextFocus);
 
 
-        copy. setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyText();
+        copy.setOnClickListener(view -> copyText());
+
+
+        shading.setOnClickListener(view -> {
+            boolean temp = View.VISIBLE != shdCtn.getVisibility();
+
+            if(temp){
+                shdCtn.setVisibility(View.VISIBLE);
+            }else{
+                shdCtn.setVisibility(View.INVISIBLE);
             }
         });
+
+
+        shadedBtn.setOnClickListener(view -> toggleShade(0));
+        celBtn.setOnClickListener(view -> toggleShade(1));
+        flatsBtn.setOnClickListener(view -> toggleShade(2));
+        linesBtn.setOnClickListener(view -> toggleShade(3));
+        sketchBtn.setOnClickListener(view -> toggleShade(4));
+        tgmStickBtn.setOnClickListener(view -> toggleShade(5));
 
 
         //notes:
@@ -148,13 +213,12 @@ public class MainActivity extends AppCompatActivity {
         check all others to make sure they aren't enabled on press
         have array of booleans
 
-
-        replace full body/half body/headshot with custom text
-
+        change text of shading button to what shading is selected
 
         each togglable box is a different base price
-        (base price * (body type modifier)) + flat [apply discounts after this]
 
+
+        replace full body/half body/headshot with custom text
         */
     }
 
@@ -336,5 +400,20 @@ public class MainActivity extends AppCompatActivity {
         cb.setPrimaryClip(out);
 
         Toast.makeText(MainActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void toggleShade(int shadeVal){
+        shadeArray[shadeVal].setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_on, null));
+        basePrice = prices[shadeVal];
+        shadeActive[shadeVal] = true;
+        baseText.setText("$ " + String.format(Locale.ROOT,"%,.0f", basePrice));
+        shading.setText(shadeNames[shadeVal]);
+
+        for(int i = 0; i < shadeArray.length; i++){
+            if(i != shadeVal && shadeActive[i]){
+                shadeActive[i] = false;
+                shadeArray[i].setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_off, null));
+            }
+        }
     }
 }
