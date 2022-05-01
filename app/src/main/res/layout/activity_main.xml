@@ -311,7 +311,6 @@
                     android:layout_height="match_parent"
                     android:background="#352A49"
                     android:padding="10dp"
-                    android:text="TextView"
                     android:textColor="@color/white" />
             </LinearLayout>
         </ScrollView>
