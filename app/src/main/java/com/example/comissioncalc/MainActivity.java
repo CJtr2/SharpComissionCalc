@@ -415,5 +415,8 @@ public class MainActivity extends AppCompatActivity {
                 shadeArray[i].setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_off, null));
             }
         }
+
+        updatePriceText();
+        shdCtn.setVisibility(View.INVISIBLE);
     }
 }
