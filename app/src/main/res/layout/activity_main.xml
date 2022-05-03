@@ -218,10 +218,13 @@
                 android:ems="3"
                 android:gravity="center"
                 android:hint="#"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:textColor="@color/black"
-                android:textColorHint="#B6B6B6" />
+                android:textColorHint="#B6B6B6"
+                android:textSize="22sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -255,10 +258,13 @@
                 android:ems="3"
                 android:gravity="center"
                 android:hint="#"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:textColor="@color/black"
-                android:textColorHint="#B6B6B6" />
+                android:textColorHint="#B6B6B6"
+                android:textSize="22sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -293,10 +299,13 @@
                 android:ems="3"
                 android:gravity="center"
                 android:hint="#"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:textColor="@color/black"
-                android:textColorHint="#B6B6B6" />
+                android:textColorHint="#B6B6B6"
+                android:textSize="22sp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -321,8 +330,8 @@
             android:layout_height="match_parent"
             android:background="#352A49"
             android:contentDescription="extras"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
 
             <LinearLayout
                 android:id="@+id/extrasList"
@@ -347,10 +356,32 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/finalPriceText"
-            android:layout_width="match_parent"
+            android:id="@+id/finalDiscTot"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/separator"
             android:background="#352A49"
+            android:gravity="right"
+            android:padding="5dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/finalPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="false"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/separator"
+            android:background="#352A49"
+            android:gravity="right"
             android:padding="5dp"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -435,6 +466,82 @@
             android:layout_marginBottom="8dp"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/extraInputContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/shadingBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="#A1D15E"
+        android:padding="5dp"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:id="@+id/nameInputContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#1C6A37"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/nameInputText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:ems="7"
+                android:gravity="center"
+                android:hint="Name of Extra"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B6B6B6"
+                android:textSize="22sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/extraPriceInputContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/nameInputContainer"
+            android:background="#1C6A37"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/extraPriceInputText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/extraPriceDollarSIgn"
+                android:background="@color/white"
+                android:ems="3"
+                android:gravity="center|start"
+                android:hint="$$$.$$"
+                android:imeOptions="actionDone"
+                android:inputType="numberSigned|numberDecimal"
+                android:minHeight="48dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#B6B6B6"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/extraPriceDollarSIgn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center|end"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
+                android:text="$"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>
