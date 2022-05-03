@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+        storePassword 'wombat'
+            keyPassword 'wombat'
+            storeFile file('D:\\CSprojects\\AndroidApps\\SignInfo\\mySign.jks')
+            keyAlias 'comCalc'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -13,6 +21,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
