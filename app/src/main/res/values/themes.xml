@@ -19,4 +19,7 @@
     <style name="MainActivity.RedButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">#CF7C7C</item>
     </style>
+    <style name="MainActivity.RedderButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#E33535</item>
+    </style>
 </resources>

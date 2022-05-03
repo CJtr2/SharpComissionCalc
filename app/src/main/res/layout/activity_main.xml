@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:id="@+id/baseflatContainer"
+        android:id="@+id/baseFlatContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/pricesContainer"
@@ -162,7 +162,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -224,7 +224,8 @@
                 android:minHeight="48dp"
                 android:textColor="@color/black"
                 android:textColorHint="#B6B6B6"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -264,7 +265,8 @@
                 android:minHeight="48dp"
                 android:textColor="@color/black"
                 android:textColorHint="#B6B6B6"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                tools:ignore="TextContrastCheck" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -305,7 +307,8 @@
                 android:minHeight="48dp"
                 android:textColor="@color/black"
                 android:textColorHint="#B6B6B6"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                tools:ignore="TextContrastCheck" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -362,7 +365,7 @@
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/separator"
             android:background="#352A49"
-            android:gravity="right"
+            android:gravity="end"
             android:padding="5dp"
             android:textColor="@color/white" />
 
@@ -381,7 +384,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@id/separator"
             android:background="#352A49"
-            android:gravity="right"
+            android:gravity="end"
             android:padding="5dp"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -404,6 +407,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="Shaded"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -416,6 +420,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="Cel"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -428,6 +433,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="Flats"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -440,6 +446,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="Lines"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -452,6 +459,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="Sketch"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
 
@@ -464,6 +472,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:contentDescription="TGM"
             android:padding="5dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
     </RelativeLayout>
@@ -495,6 +504,7 @@
                 android:gravity="center"
                 android:hint="Name of Extra"
                 android:imeOptions="actionDone"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:textColor="@color/black"
@@ -521,6 +531,7 @@
                 android:gravity="center|start"
                 android:hint="$$$.$$"
                 android:imeOptions="actionDone"
+                android:importantForAutofill="no"
                 android:inputType="numberSigned|numberDecimal"
                 android:minHeight="48dp"
                 android:paddingEnd="10dp"

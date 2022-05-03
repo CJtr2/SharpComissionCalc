@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         updateBasePriceFlats(basePrice, flatPrice);
 
         copy.setOnClickListener(view -> copyText());
-        calculate.setOnClickListener(view -> calculateTotal());
+        calculate.setOnClickListener(view -> calculateTotal()); //TODO: Find new function for calculate button, since total auto updates
 
         {//body/headshot listeners
             TextView.OnEditorActionListener updatePrice = (textView, actionId, keyEvent) -> {
@@ -260,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //end main=========================================================================================================
-
     public void addExtraCtnToggle(){
         boolean temp = View.VISIBLE != extrasInputCtn.getVisibility();
 
@@ -479,6 +478,8 @@ public class MainActivity extends AppCompatActivity {
         //if(fb+hb+hs != 0){out += "================================\n";}
 
         pricesFieldText.setText(out);
+
+        calculateTotal();
     }
 
     public void updateBasePriceFlats(double base, double flat){
@@ -566,33 +567,15 @@ public class MainActivity extends AppCompatActivity {
     public void updateExtrasList(){
         extrasList.removeViewsInLayout(0, extrasList.getChildCount());
 
-        /*
-            if(deleteMode){
-                buttonColor = new ContextThemeWrapper(this, R.style.BJG_RedButton);
-            }else if(renameMode){
-                buttonColor = new ContextThemeWrapper(this, R.style.BJG_GreenButton);
-            }else{
-                buttonColor = new ContextThemeWrapper(this, R.style.Base_Widget_AppCompat_Button_Colored);
-            }
-
-             Button test = new Button(buttonColor);
-
-
-            button pressed: open edit for that view, set as one being edited. if delete button pressed, change button color to red, if button red, delete.
-
-            beingEdited - integer that stores the current id of the button in the list that was pressed.
-
-            on edit: initialize ready to delete as false, create button programmatically.
-            if pressed && !readyToDelete->readyToDelete=true
-            if pressed && readyToDelete->delete beingEdited
-         */
-
         for(int i = 0; i < extras.size(); i++){
             Resources r = getResources();
 
             ContextThemeWrapper buttonColor;
 
-            if(i == toEdit){buttonColor = new ContextThemeWrapper(this, R.style.MainActivity_RedButton);
+            if(i == toEdit && readyToDelete) {
+                buttonColor = new ContextThemeWrapper(this, R.style.MainActivity_RedderButton);
+            }else if(i == toEdit){
+                buttonColor = new ContextThemeWrapper(this, R.style.MainActivity_RedButton);
             }else{buttonColor = new ContextThemeWrapper(this, R.style.MainActivity_priceButton);}
 
             Button temp = new Button(buttonColor);
@@ -608,7 +591,9 @@ public class MainActivity extends AppCompatActivity {
             temp.setTransformationMethod(null);
             temp.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
 
-            if(i == toEdit){
+            if(i == toEdit && readyToDelete){
+                temp.setBackgroundColor(Color.parseColor("#E33535"));
+            }else if(i == toEdit){
                 temp.setBackgroundColor(Color.parseColor("#CF7C7C"));
             }else{temp.setBackgroundColor(Color.parseColor("#FF4F4561"));}
 
@@ -631,6 +616,8 @@ public class MainActivity extends AppCompatActivity {
 
             extrasList.addView(temp);
         }
+
+        calculateTotal();
     }
 
     public double[] calculateTotal(){
@@ -671,19 +658,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void extraEdit(int id){
-        toEdit = id;
+        if(readyToDelete && toEdit == id){
+            extras.remove(toEdit);
+            extrasPrices.remove(toEdit);
+
+            extrasInputCtn.setVisibility(View.INVISIBLE);
+
+            readyToDelete = false;
+            toEdit = -1;
+
+            Toast.makeText(MainActivity.this, ("BALETED!"), Toast.LENGTH_SHORT).show();
+        }else if(toEdit > -1 && toEdit == id){
+            readyToDelete = true;
+
+        }else{
+            toEdit = id;
+            readyToDelete = false;
+
+            extrasInputCtn.setVisibility(View.VISIBLE);
+            nameInput.requestFocus();
+
+            String temp = ""+extrasPrices.get(id);
+            extraPriceInput.setText(temp);
+            nameInput.setText(extras.get(id));
+        }
 
         updateExtrasList();
-
-        extrasInputCtn.setVisibility(View.VISIBLE);
-        nameInput.requestFocus();
-
-        String temp = ""+extrasPrices.get(id);
-        extraPriceInput.setText(temp);
-        nameInput.setText(extras.get(id));
-
-        Toast.makeText(MainActivity.this, ("Ready To Edit Extra " + (id+1)), Toast.LENGTH_SHORT).show();
-
-
     }
 }
