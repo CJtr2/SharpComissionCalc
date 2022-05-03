@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     public EditText nameInput;
     public EditText extraPriceInput;
 
+    public RelativeLayout extrasInputCtn;
+
     //internal declarations===============================
     public int fb;
     public int hb;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     public double tgmStick;
 
     public int discountPer1;
-    public int discountpercent;
+    public int discountPercent;
 
     public int hbNumer;
     public int hbDenom;
@@ -98,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
     public LinkedList<String> extras;
     public LinkedList<Double> extrasPrices;
 
-    public RelativeLayout extrasInputCtn;
+    public int toEdit;
+    public boolean readyToDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
         fb = 0;
         hb = 0;
         hs = 0;
+
+        toEdit = -1;
+        readyToDelete = false;
 
         shadeArray = new ImageView[6];
         prices = new double[6];
@@ -170,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         prices[5] = tgmStick = 50;
 
         discountPer1 = 1;
-        discountpercent = 50;
+        discountPercent = 50;
 
         hbNumer = 2;
         hbDenom = 3;
@@ -179,132 +185,126 @@ public class MainActivity extends AppCompatActivity {
         hsDenom = 2;
 
 
-        //do stuff
-        baseText.setText("$ " + String.format(Locale.ROOT,"%,.0f", basePrice));
-        flatText.setText("$ " + String.format(Locale.ROOT,"%,.0f", flatPrice));
-
-        TextView.OnEditorActionListener updatePrice = (textView, actionId, keyEvent) -> {
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-                updatePriceText();
-                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-                return true;
-            }
-            return false;
-        };
-
-        View.OnClickListener clearText = view -> {
-            if(view instanceof EditText){
-                ((EditText) view).setText("");
-            }
-        };
-
-        View.OnFocusChangeListener clearTextFocus = (view, hasFocus) -> {
-            if(view instanceof  EditText && hasFocus){
-                ((EditText) view).setText("");
-            }else{
-                updatePriceText();
-            }
-        };
-
-        fbEntry.setOnEditorActionListener(updatePrice);
-        hbEntry.setOnEditorActionListener(updatePrice);
-        hsEntry.setOnEditorActionListener(updatePrice);
-
-        fbEntry.setOnClickListener(clearText);
-        hbEntry.setOnClickListener(clearText);
-        hsEntry.setOnClickListener(clearText);
-
-        fbEntry.setOnFocusChangeListener(clearTextFocus);
-        hbEntry.setOnFocusChangeListener(clearTextFocus);
-        hsEntry.setOnFocusChangeListener(clearTextFocus);
-
+        //set listeners and other starting operations
+        updateBasePriceFlats(basePrice, flatPrice);
 
         copy.setOnClickListener(view -> copyText());
-
-
-        shading.setOnClickListener(view -> {
-            boolean temp = View.VISIBLE != shdCtn.getVisibility();
-
-            if(temp){
-                shdCtn.setVisibility(View.VISIBLE);
-            }else{
-                shdCtn.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
-        shadedBtn.setOnClickListener(view -> toggleShade(0));
-        celBtn.setOnClickListener(view -> toggleShade(1));
-        flatsBtn.setOnClickListener(view -> toggleShade(2));
-        linesBtn.setOnClickListener(view -> toggleShade(3));
-        sketchBtn.setOnClickListener(view -> toggleShade(4));
-        tgmStickBtn.setOnClickListener(view -> toggleShade(5));
-
-
-        addExtra.setOnClickListener(view -> {
-            boolean temp = View.VISIBLE != extrasInputCtn.getVisibility();
-
-            extraPriceInput.setText("");
-            nameInput.setText("");
-
-            if(temp){
-                extrasInputCtn.setVisibility(View.VISIBLE);
-                nameInput.requestFocus();
-                imm.showSoftInput(nameInput, InputMethodManager.SHOW_IMPLICIT);
-            }else{
-                extrasInputCtn.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        nameInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-                extraPriceInput.requestFocus();
-                imm.showSoftInput(extraPriceInput, InputMethodManager.SHOW_IMPLICIT);
-                return true;
-            }
-            return false;
-        });
-
-        extraPriceInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-                String check = extraPriceInput.getText().toString();
-
-                if(!"".equals(check) && !".".equals(check) && !"-".equals(check)){
-                    extrasPrices.add((double)Math.round(100 * Double.parseDouble(check))/100.0);
-                    extras.add(nameInput.getText().toString());
-
-                    extrasInputCtn.setVisibility(View.INVISIBLE);
-                    updateExtrasList();
-                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-                }else{
-                    Toast.makeText(MainActivity.this, "Invalid Price Entered!", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-            return false;
-        });
-
         calculate.setOnClickListener(view -> calculateTotal());
 
-        //notes:
-        /*
-        on image view pressed change between toggled on text and toggled off text, make custom image for it
-        check all others to make sure they aren't enabled on press
-        have array of booleans
+        {//body/headshot listeners
+            TextView.OnEditorActionListener updatePrice = (textView, actionId, keyEvent) -> {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    updatePriceText();
+                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            };
 
-        change text of shading button to what shading is selected
+            View.OnClickListener clearText = view -> {
+                if (view instanceof EditText) {
+                    ((EditText) view).setText("");
+                }
+            };
 
-        each togglable box is a different base price
+            View.OnFocusChangeListener clearTextFocus = (view, hasFocus) -> {
+                if (view instanceof EditText && hasFocus) {
+                    ((EditText) view).setText("");
+                } else {
+                    updatePriceText();
+                }
+            };
 
+            fbEntry.setOnEditorActionListener(updatePrice);
+            hbEntry.setOnEditorActionListener(updatePrice);
+            hsEntry.setOnEditorActionListener(updatePrice);
 
-        replace full body/half body/headshot with custom text
+            fbEntry.setOnClickListener(clearText);
+            hbEntry.setOnClickListener(clearText);
+            hsEntry.setOnClickListener(clearText);
 
+            fbEntry.setOnFocusChangeListener(clearTextFocus);
+            hbEntry.setOnFocusChangeListener(clearTextFocus);
+            hsEntry.setOnFocusChangeListener(clearTextFocus);
+        }
 
-        if button pressed:
-        open edit screen, set as item in list that is being edited, have special section on hitting enter
+        {//shade on click listeners
+            shading.setOnClickListener(view -> toggleShadeContainer());
 
-        if edit visible and current button is set as being visible, delete the entry
-        */
+            for(int i = 0; i < shadeArray.length; i++){
+                final int val = i;
+                shadeArray[i].setOnClickListener(view -> toggleShade(val));
+            }
+        }
+
+        {//add extra on listeners
+            addExtra.setOnClickListener(view -> addExtraCtnToggle());
+
+            nameInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    extraPriceInput.requestFocus();
+                    imm.showSoftInput(extraPriceInput, InputMethodManager.SHOW_IMPLICIT);
+                    return true;
+                }
+                return false;
+            });
+
+            extraPriceInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    addExtraToList(textView);
+                    return true;
+                }
+                return false;
+            });
+        }
+    }
+
+    //end main=========================================================================================================
+
+    public void addExtraCtnToggle(){
+        boolean temp = View.VISIBLE != extrasInputCtn.getVisibility();
+
+        extraPriceInput.setText("");
+        nameInput.setText("");
+
+        if(temp){
+            extrasInputCtn.setVisibility(View.VISIBLE);
+            nameInput.requestFocus();
+            imm.showSoftInput(nameInput, InputMethodManager.SHOW_IMPLICIT);
+        }else{
+            if(toEdit > -1) {
+                toEdit = -1;
+                readyToDelete = false;
+                updateExtrasList();
+            }
+            extrasInputCtn.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void addExtraToList(TextView textView){
+        String check = extraPriceInput.getText().toString();
+
+        if(!"".equals(check) && !".".equals(check) && !"-".equals(check)){
+            double price = (double)Math.round(100 * Double.parseDouble(check))/100.0;
+            if(toEdit > -1){
+                extrasPrices.set(toEdit, price);
+                extras.set(toEdit, nameInput.getText().toString());
+
+                toEdit = -1;
+                readyToDelete = false;
+
+                updateExtrasList();
+            }else{
+                extrasPrices.add(price);
+                extras.add(nameInput.getText().toString());
+            }
+
+            extrasInputCtn.setVisibility(View.INVISIBLE);
+            updateExtrasList();
+            imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+        }else{
+            Toast.makeText(MainActivity.this, "Invalid Price Entered!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void updatePriceText(){
@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
             out += "Full Body:\n";
             out += "================================\n";
             double cost = (basePrice + flatPrice);
-            double discAmnt = cost - (cost * (discountpercent/100.0));
+            double discAmnt = cost - (cost * (discountPercent /100.0));
 
             double dscTot = 0;
             double costTot = 0;
@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
             out += "================================\n";
 
             double cost = (((basePrice * hbNumer)/hbDenom)+ flatPrice);
-            double discAmnt = cost - (cost * (discountpercent/100.0));
+            double discAmnt = cost - (cost * (discountPercent /100.0));
 
             double dscTot = 0;
             double costTot = 0;
@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
             out += "================================\n";
 
             double cost = (((basePrice * hsNumer)/hsDenom)+ flatPrice);
-            double discAmnt = cost - (cost * (discountpercent/100.0));
+            double discAmnt = cost - (cost * (discountPercent /100.0));
 
             double dscTot = 0;
             double costTot = 0;
@@ -481,6 +481,16 @@ public class MainActivity extends AppCompatActivity {
         pricesFieldText.setText(out);
     }
 
+    public void updateBasePriceFlats(double base, double flat){
+        basePrice = base;
+        flatPrice = flat;
+
+        String baseFlat = "$ " + String.format(Locale.ROOT,"%,.0f", basePrice);
+        baseText.setText(baseFlat);
+        baseFlat = "$ " + String.format(Locale.ROOT,"%,.0f", flatPrice);
+        flatText.setText(baseFlat);
+    }
+
     public void copyText(){
         //TODO: Remake this with all format somehow
 
@@ -499,11 +509,11 @@ public class MainActivity extends AppCompatActivity {
             temp += "================================\n";
 
             for(int i = 0; i < extras.size(); i++){
-                double curprice = extrasPrices.get(i);
+                double curPrice = extrasPrices.get(i);
                 String out;
 
-                if(curprice < 0){out = extras.get(i) + ":   -$ " + String.format(Locale.ROOT, "%,6.2f" ,curprice) + "\n";}
-                else{out = extras.get(i) + ":   $ " + String.format(Locale.ROOT, "%,6.2f" ,curprice) + "\n";}
+                if(curPrice < 0){out = extras.get(i) + ":   -$ " + String.format(Locale.ROOT, "%,6.2f" ,curPrice) + "\n";}
+                else{out = extras.get(i) + ":   $ " + String.format(Locale.ROOT, "%,6.2f" ,curPrice) + "\n";}
                 temp += String.format(Locale.ROOT, "%33s", out);
             }
 
@@ -524,11 +534,22 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
     }
 
+    public void toggleShadeContainer(){
+        boolean temp = View.VISIBLE != shdCtn.getVisibility();
+
+        if(temp){
+            shdCtn.setVisibility(View.VISIBLE);
+        }else{
+            shdCtn.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void toggleShade(int shadeVal){
         shadeArray[shadeVal].setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_on, null));
-        basePrice = prices[shadeVal];
         shadeActive[shadeVal] = true;
-        baseText.setText("$ " + String.format(Locale.ROOT,"%,.0f", basePrice));
+
+        updateBasePriceFlats(prices[shadeVal], flatPrice);
+
         shading.setText(shadeNames[shadeVal]);
 
         for(int i = 0; i < shadeArray.length; i++){
@@ -559,29 +580,38 @@ public class MainActivity extends AppCompatActivity {
 
             button pressed: open edit for that view, set as one being edited. if delete button pressed, change button color to red, if button red, delete.
 
-            beingedited - integer that stores the current id of the button in the list that was pressed.
+            beingEdited - integer that stores the current id of the button in the list that was pressed.
 
-            on edit: initialize ready to delete as false, create button programatically.
-            if pressed && !readytodelete->readytodlete=true
-            if pressed && readytodelete->delete beingedited
+            on edit: initialize ready to delete as false, create button programmatically.
+            if pressed && !readyToDelete->readyToDelete=true
+            if pressed && readyToDelete->delete beingEdited
          */
 
         for(int i = 0; i < extras.size(); i++){
             Resources r = getResources();
 
-            Button temp = new Button(new ContextThemeWrapper(this, R.style.MainActivity_priceButton));
+            ContextThemeWrapper buttonColor;
 
-            double curprice = extrasPrices.get(i);
-            String text = "";
+            if(i == toEdit){buttonColor = new ContextThemeWrapper(this, R.style.MainActivity_RedButton);
+            }else{buttonColor = new ContextThemeWrapper(this, R.style.MainActivity_priceButton);}
 
-            if(curprice < 0){text = extras.get(i) + ":   -$ " + String.format(Locale.ROOT, "%,6.2f" ,Math.abs(curprice)) + "           ";}
-            else{text = extras.get(i) + ":   $ " + String.format(Locale.ROOT, "%,6.2f" ,curprice) + "           ";}
+            Button temp = new Button(buttonColor);
+
+            double curPrice = extrasPrices.get(i);
+            String text;
+
+            if(curPrice < 0){text = extras.get(i) + ":   -$ " + String.format(Locale.ROOT, "%,6.2f" ,Math.abs(curPrice)) + "           ";}
+            else{text = extras.get(i) + ":   $ " + String.format(Locale.ROOT, "%,6.2f" ,curPrice) + "           ";}
 
 
             temp.setText(text);
             temp.setTransformationMethod(null);
             temp.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
-            temp.setBackgroundColor(Color.parseColor("#FF4F4561"));
+
+            if(i == toEdit){
+                temp.setBackgroundColor(Color.parseColor("#CF7C7C"));
+            }else{temp.setBackgroundColor(Color.parseColor("#FF4F4561"));}
+
 
             float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,20f,r.getDisplayMetrics());
             temp.setHeight((int)height);
@@ -595,6 +625,9 @@ public class MainActivity extends AppCompatActivity {
 
             temp.setLayoutParams(param);
 
+            final int val = i;
+
+            temp.setOnClickListener(view -> extraEdit(val));
 
             extrasList.addView(temp);
         }
@@ -611,8 +644,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        finalDiscText.setText("Dsc: -$ " + String.format(Locale.ROOT, "%,.2f" ,finalDiscTot));
-        finalPriceText.setText("Tot: $ " + String.format(Locale.ROOT, "%,.2f" ,finalPrice));
+        String temp = "Dsc: -$ " + String.format(Locale.ROOT, "%,.2f" ,finalDiscTot);
+        finalDiscText.setText(temp);
+        temp = "Tot: $ " + String.format(Locale.ROOT, "%,.2f" ,finalPrice);
+        finalPriceText.setText(temp);
 
         return new double[]{finalDiscTot, finalPrice};
     }
@@ -620,12 +655,35 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if(toEdit > -1) {
+            toEdit = -1;
+            readyToDelete = false;
+            updateExtrasList();
+        }
+
         if(shdCtn.getVisibility() == View.VISIBLE){
             shdCtn.setVisibility(View.INVISIBLE);
         }else if(extrasInputCtn.getVisibility() == View.VISIBLE){
             extrasInputCtn.setVisibility(View.INVISIBLE);
-        }else {
+        }else{
             super.onBackPressed();
         }
+    }
+
+    public void extraEdit(int id){
+        toEdit = id;
+
+        updateExtrasList();
+
+        extrasInputCtn.setVisibility(View.VISIBLE);
+        nameInput.requestFocus();
+
+        String temp = ""+extrasPrices.get(id);
+        extraPriceInput.setText(temp);
+        nameInput.setText(extras.get(id));
+
+        Toast.makeText(MainActivity.this, ("Ready To Edit Extra " + (id+1)), Toast.LENGTH_SHORT).show();
+
+
     }
 }

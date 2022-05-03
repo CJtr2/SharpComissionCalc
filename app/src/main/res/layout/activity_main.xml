@@ -474,7 +474,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/shadingBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="90dp"
         android:background="#A1D15E"
         android:padding="5dp"
         android:visibility="invisible">
@@ -491,7 +491,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:ems="7"
+                android:ems="6"
                 android:gravity="center"
                 android:hint="Name of Extra"
                 android:imeOptions="actionDone"

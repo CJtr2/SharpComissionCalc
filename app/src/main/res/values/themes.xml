@@ -16,4 +16,7 @@
     <style name="MainActivity.priceButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">#FF4F4561</item>
     </style>
+    <style name="MainActivity.RedButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#CF7C7C</item>
+    </style>
 </resources>
