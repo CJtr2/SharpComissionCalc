@@ -11,14 +11,18 @@
         android:id="@+id/baseFlatContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/pricesContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp">
+        android:layout_alignStart="@id/pricesContainer"
+        android:layout_alignTop="@id/numBodiesContainer"
+        android:layout_alignEnd="@id/pricesContainer"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="10dp">
 
         <RelativeLayout
             android:id="@+id/curBaseContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/centered"
             android:background="#673AB7"
             android:padding="5dp">
 
@@ -55,8 +59,8 @@
             android:id="@+id/curFlatContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_toEndOf="@id/curBaseContainer"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/centered"
             android:background="#673AB7"
             android:padding="5dp">
 
@@ -87,6 +91,12 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/centered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <Button
@@ -123,9 +133,10 @@
         android:id="@+id/addExtraBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/calcBtn"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Add Extra"
         android:textSize="11sp" />
 
@@ -133,24 +144,22 @@
         android:id="@+id/calcBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/addExtraBtn"
-        android:layout_alignEnd="@id/addExtraBtn"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_marginBottom="10dp"
         android:paddingTop="17dp"
         android:paddingBottom="17dp"
         android:text="Do It"
-        android:textSize="11sp" />
+        android:textSize="11sp"
+        android:visibility="invisible" />
 
     <RelativeLayout
         android:id="@+id/pricesContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/extrasWindow"
+        android:layout_below="@id/baseFlatContainer"
         android:layout_alignStart="@id/extrasWindow"
-        android:layout_alignTop="@id/numBodiesContainer"
         android:layout_alignEnd="@id/extrasWindow"
-        android:layout_marginTop="-10dp"
         android:layout_marginBottom="5dp"
         android:background="#673AB7"
         android:padding="5dp">
@@ -184,7 +193,7 @@
         android:layout_alignStart="@id/configBtn"
         android:layout_alignEnd="@id/configBtn"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="100dp"
         android:background="#06A9F3"
         android:padding="5dp">
 
@@ -233,7 +242,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fullBodyContainer"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="#FF7C2D2D"
             android:padding="5dp">
 
@@ -275,7 +284,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/halfBodyContainer"
             android:layout_alignEnd="@id/halfBodyContainer"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="#FF7C2D2D"
             android:padding="5dp">
 
@@ -348,13 +357,13 @@
         android:id="@+id/finalPriceContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/calcBtn"
+        android:layout_alignBottom="@id/addExtraBtn"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="6dp"
-        android:layout_toStartOf="@id/calcBtn"
+        android:layout_toStartOf="@id/addExtraBtn"
         android:background="#673AB7"
         android:padding="5dp">
 
@@ -393,7 +402,7 @@
         android:id="@+id/shadingContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/calcBtn"
+        android:layout_above="@id/addExtraBtn"
         android:layout_marginEnd="7dp"
         android:layout_toStartOf="@id/copyBtn"
         android:background="#6A0F69"
@@ -481,9 +490,9 @@
         android:id="@+id/extraInputContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/shadingBtn"
+        android:layout_alignTop="@id/numBodiesContainer"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="90dp"
+        android:layout_marginTop="160dp"
         android:background="#A1D15E"
         android:padding="5dp"
         android:visibility="invisible">
