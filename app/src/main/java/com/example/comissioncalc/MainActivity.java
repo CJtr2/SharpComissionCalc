@@ -354,9 +354,9 @@ public class MainActivity extends AppCompatActivity {
 
         //full body section====================================
         if(fb != 0){
-            out += "================================\n";
+            out += "==========================\n";
             out += "Full Body:\n";
-            out += "================================\n";
+            out += "==========================\n";
             double cost = (basePrice + flatPrice);
             double discAmnt = cost - (cost * (discountPercent /100.0));
 
@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
                 costTot += cost;
 
                 if(discounts[0] > 0){
-                    out += "                                      -$ " + String.format(Locale.ROOT,"%,.2f", discAmnt) + "  dsc[" + usedDisc +"]\n";
+                    out += "                                      -$ " + String.format(Locale.ROOT,"%,.2f", discAmnt) +"\n";
                     usedDisc--;
                     dscTot += discAmnt;
                     discounts[0]--;
@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
             preExtraFinal += costTot;
             preExtraFinal -= dscTot;
             totalDiscount += dscTot;
-            out += "\n================================\n";
+            out += "\n==========================\n";
             out +="Cost:                $ " + String.format(Locale.ROOT,"%,.2f", costTot) + "\n";
             out +="                                      -$ " + String.format(Locale.ROOT,"%,.2f", dscTot) + "\n";
             out +="SubTotal:        $ " + String.format(Locale.ROOT,"%,.2f", preExtraFinal) + "\n\n";
@@ -395,9 +395,9 @@ public class MainActivity extends AppCompatActivity {
 
         //half body section====================================
         if(hb != 0){
-            out += "================================\n";
+            out += "==========================\n";
             out += "Half Body:\n";
-            out += "================================\n";
+            out += "==========================\n";
 
             double cost = (((basePrice * hbNumer)/hbDenom)+ flatPrice);
             double discAmnt = cost - (cost * (discountPercent /100.0));
@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                 costTot += cost;
 
                 if(discounts[1] > 0){
-                    out += "                                      -$ " + String.format(Locale.ROOT,"%,.2f", discAmnt) + "  dsc[" + usedDisc +"]\n";
+                    out += "                                      -$ " + String.format(Locale.ROOT,"%,.2f", discAmnt) + "\n";
                     usedDisc--;
                     dscTot += discAmnt;
                     discounts[1]--;
@@ -429,7 +429,7 @@ public class MainActivity extends AppCompatActivity {
             preExtraFinal += costTot;
             preExtraFinal -= dscTot;
             totalDiscount += dscTot;
-            out += "\n================================\n";
+            out += "\n==========================\n";
             out +="Cost:                $ " + String.format(Locale.ROOT,"%,.2f", costTot) + "\n";
             out +="                                      -$ " + String.format(Locale.ROOT,"%,.2f", dscTot) + "\n";
             out +="SubTotal:        $ " + String.format(Locale.ROOT,"%,.2f", preExtraFinal) + "\n\n";
@@ -437,9 +437,9 @@ public class MainActivity extends AppCompatActivity {
 
         //headshot section=====================================
         if(hs != 0){
-            out += "================================\n";
+            out += "==========================\n";
             out += "Headshot:\n";
-            out += "================================\n";
+            out += "==========================\n";
 
             double cost = (((basePrice * hsNumer)/hsDenom)+ flatPrice);
             double discAmnt = cost - (cost * (discountPercent /100.0));
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
                 costTot += cost;
 
                 if(discounts[2] > 0){
-                    out += "                                      -$ " + String.format(Locale.ROOT,"%,.2f", discAmnt) + "  dsc[" + usedDisc +"]\n";
+                    out += "                                      -$ " + String.format(Locale.ROOT,"%,.2f", discAmnt) + "\n";
                     usedDisc--;
                     dscTot += discAmnt;
                     discounts[2]--;
@@ -471,12 +471,12 @@ public class MainActivity extends AppCompatActivity {
             preExtraFinal += costTot;
             preExtraFinal -= dscTot;
             totalDiscount += dscTot;
-            out += "\n================================\n";
+            out += "\n==========================\n";
             out +="Cost:                $ " + String.format(Locale.ROOT,"%,.2f", costTot) + "\n";
             out +="                                      -$ " + String.format(Locale.ROOT,"%,.2f", dscTot) + "\n";
             out +="SubTotal:        $ " + String.format(Locale.ROOT,"%,.2f", preExtraFinal) + "\n\n";
         }
-        //if(fb+hb+hs != 0){out += "================================\n";}
+        //if(fb+hb+hs != 0){out += "==========================\n";}
 
         pricesFieldText.setText(out);
 
@@ -507,8 +507,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(extras.size() > 0){
-            temp += "EXTRA CHARGES===================\n";
-            temp += "================================\n";
+            temp += "EXTRA CHARGES=============\n";
+            temp += "==========================\n";
 
             for(int i = 0; i < extras.size(); i++){
                 double curPrice = extrasPrices.get(i);
@@ -525,10 +525,10 @@ public class MainActivity extends AppCompatActivity {
         temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]) + "\n";
         temp += String.format(Locale.ROOT, "Subtotal:         $ %,.2f" ,finals[1]+preExtraFinal-finals[0]) + "\n";
 
-        temp += "TOTAL PRICE=======================\n";
-        temp += "================================\n";
+        temp += "TOTAL PRICE=================\n";
+        temp += "==========================\n";
         temp += String.format(Locale.ROOT, "PRE DSC:         $ %,.2f" ,finals[1]+preExtraFinal) + "\n";
-        temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]+totalDiscount) + "  dsc\n";
+        temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]+totalDiscount) + "\n";
         temp += String.format(Locale.ROOT, "FINAL:              $ %,.2f" ,finals[1]+preExtraFinal-finals[0]) + "\n";
 
 
