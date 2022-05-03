@@ -165,14 +165,14 @@ public class MainActivity extends AppCompatActivity {
         shadedBtn.setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_on, null));
 
         //internal declarations (will be fetched from config)
-        basePrice = 60.0;
-        flatPrice = 30.0;
+        basePrice = 90.0;
+        flatPrice = 00.0;
 
-        prices[0] = shaded = 60;
-        prices[1] = cel = 50;
-        prices[2] = flats = 45;
-        prices[3] = lines = 35;
-        prices[4] = sketch = 25;
+        prices[0] = shaded = 90;
+        prices[1] = cel = 80;
+        prices[2] = flats = 75;
+        prices[3] = lines = 65;
+        prices[4] = sketch = 55;
         prices[5] = tgmStick = 50;
 
         discountPer1 = 1;
@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         {//shade on click listeners
+            //TODO: Theoretically I could make the number/name of shade types configurable
             shading.setOnClickListener(view -> toggleShadeContainer());
 
             for(int i = 0; i < shadeArray.length; i++){
@@ -513,19 +514,22 @@ public class MainActivity extends AppCompatActivity {
                 double curPrice = extrasPrices.get(i);
                 String out;
 
-                if(curPrice < 0){out = extras.get(i) + ":   -$ " + String.format(Locale.ROOT, "%,6.2f" ,curPrice) + "\n";}
+                if(curPrice < 0){out = extras.get(i) + ":   -$ " + String.format(Locale.ROOT, "%,6.2f" ,Math.abs(curPrice)) + "\n";}
                 else{out = extras.get(i) + ":   $ " + String.format(Locale.ROOT, "%,6.2f" ,curPrice) + "\n";}
                 temp += String.format(Locale.ROOT, "%33s", out);
             }
 
             temp += "\n";
         }
+        temp += String.format(Locale.ROOT, "Cost:                $ %,.2f" ,finals[1]) + "\n";
+        temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]) + "\n";
+        temp += String.format(Locale.ROOT, "Subtotal:         $ %,.2f" ,finals[1]+preExtraFinal-finals[0]) + "\n";
 
-        temp += "FINAL PRICE=======================\n";
+        temp += "TOTAL PRICE=======================\n";
         temp += "================================\n";
-        temp += String.format(Locale.ROOT, "SUB:                 $ %,.2f" ,finals[0] + finals[1]) + "\n";
-        temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]) + "dsc\n";
-        temp += String.format(Locale.ROOT, "FIN:                  $ %,.2f" ,finals[1]) + "\n";
+        temp += String.format(Locale.ROOT, "PRE DSC:         $ %,.2f" ,finals[1]+preExtraFinal) + "\n";
+        temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]+totalDiscount) + "  dsc\n";
+        temp += String.format(Locale.ROOT, "FINAL:              $ %,.2f" ,finals[1]+preExtraFinal-finals[0]) + "\n";
 
 
         ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -621,19 +625,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public double[] calculateTotal(){
-        double finalPrice = preExtraFinal;
-        double finalDiscTot = totalDiscount;
+        double finalPrice = 0;
+        double finalDiscTot = 0;
 
         for(double x : extrasPrices){
-            finalPrice += x;
             if(x<0){
                 finalDiscTot -= x;
+            }else{
+                finalPrice += x;
             }
         }
 
-        String temp = "Dsc: -$ " + String.format(Locale.ROOT, "%,.2f" ,finalDiscTot);
+        String temp = "Dsc: -$ " + String.format(Locale.ROOT, "%,.2f" ,finalDiscTot + totalDiscount);
         finalDiscText.setText(temp);
-        temp = "Tot: $ " + String.format(Locale.ROOT, "%,.2f" ,finalPrice);
+        temp = "Tot: $ " + String.format(Locale.ROOT, "%,.2f" ,finalPrice + preExtraFinal - finalDiscTot);
         finalPriceText.setText(temp);
 
         return new double[]{finalDiscTot, finalPrice};
