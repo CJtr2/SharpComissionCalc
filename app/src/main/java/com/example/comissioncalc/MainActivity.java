@@ -525,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
         temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]) + "\n";
         temp += String.format(Locale.ROOT, "Subtotal:         $ %,.2f" ,finals[1]+preExtraFinal-finals[0]) + "\n";
 
-        temp += "TOTAL PRICE=================\n";
+        temp += "TOTAL PRICE================\n";
         temp += "==========================\n";
         temp += String.format(Locale.ROOT, "PRE DSC:         $ %,.2f" ,finals[1]+preExtraFinal) + "\n";
         temp += String.format(Locale.ROOT, "                                      -$ %,.2f" ,finals[0]+totalDiscount) + "\n";
