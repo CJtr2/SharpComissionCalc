@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -258,6 +259,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             });
         }
+
+        config.setOnClickListener(view -> goToConfig());
 
         //TODO: Add some kind of undo feature on hitting back that undoes last actions done. Use queue for this?
     }
@@ -664,6 +667,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadConfig();
+        //Toast.makeText(MainActivity.this, ("RETURNED TO MAIN!"), Toast.LENGTH_SHORT).show();
+    }
+
+    public void goToConfig(){
+        Intent intent = new Intent(this, ConfigMenu.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
     public void extraEdit(int id){
         if(readyToDelete && toEdit == id){
             extras.remove(toEdit);
@@ -691,5 +707,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         updateExtrasList();
+    }
+
+    public void loadConfig(){
+
     }
 }
