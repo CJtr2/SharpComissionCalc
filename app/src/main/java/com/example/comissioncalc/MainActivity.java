@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         prices[4] = sketch = 55;
         prices[5] = tgmStick = 50;
 
-        discountPer1 = 1;
+        discountPer1 = 2;
         discountPercent = 50;
 
         hbNumer = 2;
@@ -258,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             });
         }
+
+        //TODO: Add some kind of undo feature on hitting back that undoes last actions done. Use queue for this?
     }
 
     //end main=========================================================================================================
