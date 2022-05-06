@@ -8,6 +8,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     public EditText extraPriceInput;
 
     public RelativeLayout extrasInputCtn;
+
+    public SharedPreferences prefs;
 
     //internal declarations===============================
     public int fb;
@@ -165,26 +168,11 @@ public class MainActivity extends AppCompatActivity {
 
         shadedBtn.setImageDrawable(ResourcesCompat.getDrawable(this.getResources(), android.R.drawable.btn_star_big_on, null));
 
+        prefs = getSharedPreferences("Prefs", 0);
+        checkPrefs();
+
         //internal declarations (will be fetched from config)
-        basePrice = 90.0;
-        flatPrice = 00.0;
-
-        prices[0] = shaded = 90;
-        prices[1] = cel = 80;
-        prices[2] = flats = 75;
-        prices[3] = lines = 65;
-        prices[4] = sketch = 55;
-        prices[5] = tgmStick = 50;
-
-        discountPer1 = 2;
-        discountPercent = 50;
-
-        hbNumer = 2;
-        hbDenom = 3;
-
-        hsNumer = 1;
-        hsDenom = 2;
-
+        loadPrefs();
 
         //set listeners and other starting operations
         updateBasePriceFlats(basePrice, flatPrice);
@@ -670,7 +658,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        loadConfig();
+        loadPrefs();
+        updateBasePriceFlats(basePrice, flatPrice);
         //Toast.makeText(MainActivity.this, ("RETURNED TO MAIN!"), Toast.LENGTH_SHORT).show();
     }
 
@@ -709,7 +698,50 @@ public class MainActivity extends AppCompatActivity {
         updateExtrasList();
     }
 
-    public void loadConfig(){
+    public void loadPrefs(){
+        prices[0] = shaded = basePrice = Double.longBitsToDouble(prefs.getLong("BasePrice", Double.doubleToRawLongBits(90.0)));
+        flatPrice = Double.longBitsToDouble(prefs.getLong("FlatPrice", Double.doubleToRawLongBits(00.0)));
 
+        prices[1] = cel = Double.longBitsToDouble(prefs.getLong("Cel", Double.doubleToRawLongBits(80.0)));
+        prices[2] = flats = Double.longBitsToDouble(prefs.getLong("Flats", Double.doubleToRawLongBits(75.0)));
+        prices[3] = lines = Double.longBitsToDouble(prefs.getLong("Lines", Double.doubleToRawLongBits(65.0)));
+        prices[4] = sketch = Double.longBitsToDouble(prefs.getLong("Sketch", Double.doubleToRawLongBits(55.0)));
+        prices[5] = tgmStick = Double.longBitsToDouble(prefs.getLong("TGM", Double.doubleToRawLongBits(50.0)));
+
+        discountPer1 = prefs.getInt("DscP1", 2);
+        discountPercent = prefs.getInt("DscPer", 50);
+
+        hbNumer = prefs.getInt("hbNumer", 2);
+        hbDenom = prefs.getInt("hbDenom", 3);
+
+        hsNumer = prefs.getInt("hsNumer", 1);
+        hsDenom = prefs.getInt("hsDenom", 2);
+    }
+
+    public void checkPrefs(){
+        SharedPreferences.Editor edit = prefs.edit();
+        boolean change = false;
+
+        if(!prefs.contains("BasePrice")){edit.putLong("BasePrice", Double.doubleToRawLongBits(90.0));change = true;}
+        if(!prefs.contains("FlatPrice")){edit.putLong("FlatPrice", Double.doubleToRawLongBits(00.0));change = true;}
+
+        if(!prefs.contains("Cel")){edit.putLong("Cel", Double.doubleToRawLongBits(80.0));change = true;}
+        if(!prefs.contains("Flats")){edit.putLong("Flats", Double.doubleToRawLongBits(75.0));change = true;}
+        if(!prefs.contains("Lines")){edit.putLong("Lines", Double.doubleToRawLongBits(65.0));change = true;}
+        if(!prefs.contains("Sketch")){edit.putLong("Sketch", Double.doubleToRawLongBits(55.0));change = true;}
+        if(!prefs.contains("TGM")){edit.putLong("TGM", Double.doubleToRawLongBits(50.0));change = true;}
+
+        if(!prefs.contains("DscP1")){edit.putInt("DscP1", 2);change = true;}
+        if(!prefs.contains("DscPer")){edit.putInt("DscPer", 50);change = true;}
+
+        if(!prefs.contains("hbNumer")){edit.putInt("hbNumer", 2);change = true;}
+        if(!prefs.contains("hbDenom")){edit.putInt("hbDenom", 3);change = true;}
+
+        if(!prefs.contains("hsNumer")){edit.putInt("hsNumer", 1);change = true;}
+        if(!prefs.contains("hsDenom")){edit.putInt("hsDenom", 2);change = true;}
+
+        if(change){
+            edit.commit();
+        }
     }
 }
