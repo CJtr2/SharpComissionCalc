@@ -660,6 +660,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         loadPrefs();
         updateBasePriceFlats(basePrice, flatPrice);
+        updatePriceText();
+        calculateTotal();
         //Toast.makeText(MainActivity.this, ("RETURNED TO MAIN!"), Toast.LENGTH_SHORT).show();
     }
 

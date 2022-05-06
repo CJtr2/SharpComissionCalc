@@ -14,7 +14,7 @@
         android:layout_alignStart="@id/backApplyBtn"
         android:layout_alignEnd="@id/backApplyBtn"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="300dp"
         android:text="Return" />
 
     <Button
@@ -23,6 +23,489 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/BackBtn"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="15dp"
         android:text="Apply + Return" />
+
+    <RelativeLayout
+        android:id="@+id/baseCtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/shadesCtn"
+        android:layout_marginStart="-10dp"
+        android:layout_toEndOf="@id/shadesCtn"
+        android:background="#347827"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/basePriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/basePriceInp"
+            android:layout_alignEnd="@id/basePriceInp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Base"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/basePriceInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/basePriceTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/flatPriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/flatPriceInp"
+            android:layout_alignEnd="@id/flatPriceInp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Flat Add"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/flatPriceInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flatPriceTitle"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/basePriceInp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/shadesCtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/BackBtn"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toStartOf="@id/backApplyBtn"
+        android:background="#347827"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/celTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/celInp"
+            android:layout_alignEnd="@id/celInp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Cel Shade"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/celInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/celTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/flatsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/celInp"
+            android:layout_alignStart="@id/flatsInp"
+            android:layout_alignEnd="@id/flatsInp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Flats"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/flatsInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flatsTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/linesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flatsInp"
+            android:layout_alignStart="@id/linesInp"
+            android:layout_alignEnd="@id/linesInp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Lines"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/linesInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linesTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/sketchTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linesInp"
+            android:layout_alignStart="@id/sketchInp"
+            android:layout_alignEnd="@id/sketchInp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Sketch"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/sketchInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sketchTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/tgmTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sketchInp"
+            android:layout_alignStart="@id/tgmInp"
+            android:layout_alignEnd="@id/tgmInp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Telegram"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/tgmInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tgmTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dscCtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/baseCtn"
+        android:layout_alignStart="@id/baseCtn"
+        android:layout_marginTop="10dp"
+        android:background="#347827"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/dscP1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/dscP1Inp"
+            android:layout_alignEnd="@id/dscP1Inp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Dsc/1 FB"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/dscP1Inp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dscP1Title"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/dscPerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/dscPerInp"
+            android:layout_alignStart="@id/dscPerInp"
+            android:layout_alignEnd="@id/dscPerInp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Dsc %"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/dscPerInp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/dscP1Inp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/dscP1Inp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/hbCtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dscCtn"
+        android:layout_alignStart="@id/dscCtn"
+        android:layout_marginStart="-3dp"
+        android:layout_marginTop="10dp"
+        android:background="#347827"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/hbTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/hbNumer"
+            android:layout_alignEnd="@id/hbNumer"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Half Body"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/hbNumer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hbTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/divLinehb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hbNumer"
+            android:layout_alignStart="@id/hbNumer"
+            android:layout_alignEnd="@id/hbNumer"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="───────"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/hbDenom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divLinehb"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/hsCtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/hbCtn"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/hbCtn"
+        android:background="#347827"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/hsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/hsNumer"
+            android:layout_alignEnd="@id/hsNumer"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Headshot"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/hsNumer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hsTitle"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/divLinehs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hsNumer"
+            android:layout_alignStart="@id/hsNumer"
+            android:layout_alignEnd="@id/hsDenom"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="───────"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/hsDenom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divLinehs"
+            android:background="@color/white"
+            android:ems="3"
+            android:gravity="center"
+            android:hint="#"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B6B6B6"
+            android:textSize="22sp"
+            tools:ignore="TextContrastCheck" />
+    </RelativeLayout>
 </RelativeLayout>

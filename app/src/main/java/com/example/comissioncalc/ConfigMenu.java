@@ -50,6 +50,7 @@ public class ConfigMenu extends AppCompatActivity {
 
         //internal declarations==============================
         loadPrefs();
+        updateFields();
 
         //do stuff===========================================
         back.setOnClickListener(view -> onBackPressed());
@@ -84,7 +85,7 @@ public class ConfigMenu extends AppCompatActivity {
     }
 
     public void loadPrefs(){
-        basePrice = Double.longBitsToDouble(prefs.getLong("BasePrice", Double.doubleToRawLongBits(90.0)));
+        basePrice = shaded = Double.longBitsToDouble(prefs.getLong("BasePrice", Double.doubleToRawLongBits(90.0)));
         flatPrice = Double.longBitsToDouble(prefs.getLong("FlatPrice", Double.doubleToRawLongBits(00.0)));
 
         cel = Double.longBitsToDouble(prefs.getLong("Cel", Double.doubleToRawLongBits(80.0)));
@@ -115,5 +116,9 @@ public class ConfigMenu extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public void updateFields()  {
+
     }
 }
