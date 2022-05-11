@@ -640,6 +640,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //TODO: Implement restoring the original value when editText has focus and back is pressed.
+
         if(toEdit > -1) {
             toEdit = -1;
             readyToDelete = false;

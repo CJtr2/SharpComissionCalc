@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class ConfigMenu extends AppCompatActivity {
 
@@ -16,7 +16,26 @@ public class ConfigMenu extends AppCompatActivity {
     public SharedPreferences prefs;
     public InputMethodManager imm;
 
+    //editText Declarations
+    public EditText baseText;
+    public EditText flatAddText;
 
+    public EditText celText;
+    public EditText flatsText;
+    public EditText linesText;
+    public EditText sketchText;
+    public EditText tmgText;
+
+    public EditText dscP1Text;
+    public EditText dcsPerText;
+
+    public EditText hbNumerText;
+    public EditText hbDenomText;
+
+    public EditText hsNumerText;
+    public EditText hsDenomText;
+
+    //internal declarations
     public double basePrice;
     public double flatPrice;
 
@@ -41,6 +60,25 @@ public class ConfigMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_menu);
 
+        //editText declarations==============================
+        baseText = findViewById(R.id.basePriceInp);
+        flatAddText = findViewById(R.id.flatPriceInp);
+
+        celText = findViewById(R.id.celInp);
+        flatsText = findViewById(R.id.flatsInp);
+        linesText = findViewById(R.id.linesInp);
+        sketchText = findViewById(R.id.sketchInp);
+        tmgText = findViewById(R.id.tgmInp);
+
+        dscP1Text = findViewById(R.id.dscP1Inp);
+        dcsPerText = findViewById(R.id.dscPerInp);
+
+        hbNumerText = findViewById(R.id.hbNumer);
+        hbDenomText = findViewById(R.id.hbDenom);
+
+        hsNumerText = findViewById(R.id.hsNumer);
+        hsDenomText = findViewById(R.id.hsDenom);
+
         //activity declarations==============================
         back = findViewById(R.id.BackBtn);
         applyBack = findViewById(R.id.backApplyBtn);
@@ -55,6 +93,8 @@ public class ConfigMenu extends AppCompatActivity {
         //do stuff===========================================
         back.setOnClickListener(view -> onBackPressed());
         applyBack.setOnClickListener(view -> applyBack());
+
+        //TODO: declare onclick and onfocus for all the edittexts that clears. Also make them not chain to prevent breaking.
     }
 
     public void checkPrefs(){
@@ -105,7 +145,7 @@ public class ConfigMenu extends AppCompatActivity {
     }
 
     public void applyConfig(){
-
+        //TODO: implement applying config
     }
 
     public void applyBack(){
@@ -115,10 +155,50 @@ public class ConfigMenu extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //TODO: make hitting back while in a text field repopulate it with the current value
         super.onBackPressed();
     }
 
     public void updateFields()  {
+        String temp;
 
+        temp = "" + basePrice;
+        baseText.setText(temp);
+
+        temp = "" + flatPrice;
+        flatAddText.setText(temp);
+
+        temp = "" + cel;
+        celText.setText(temp);
+
+        temp = "" + flats;
+        flatsText.setText(temp);
+
+        temp = "" + lines;
+        linesText.setText(temp);
+
+        temp = "" + sketch;
+        sketchText.setText(temp);
+
+        temp = "" + tgmStick;
+        tmgText.setText(temp);
+
+        temp = "" + discountPer1;
+        dscP1Text.setText(temp);
+
+        temp = "" + discountPercent;
+        dcsPerText.setText(temp);
+
+        temp = "" + hbNumer;
+        hbNumerText.setText(temp);
+
+        temp = "" + hbDenom;
+        hbDenomText.setText(temp);
+
+        temp = "" + hsNumer;
+        hsNumerText.setText(temp);
+
+        temp = "" + hsDenom;
+        hsDenomText.setText(temp);
     }
 }
