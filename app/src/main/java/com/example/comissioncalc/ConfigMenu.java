@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ConfigMenu extends AppCompatActivity {
 
@@ -55,29 +60,39 @@ public class ConfigMenu extends AppCompatActivity {
     public int hsNumer;
     public int hsDenom;
 
+    //Collection Declarations
+    public EditText[] configs;
+    public String[] configNames;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_menu);
 
+        int numSets = 13;
+
+        configs = new EditText[numSets];
+        configNames = new String[]{"BasePrice", "FlatPrice", "Cel", "Flats", "Lines", "Sketch", "TGM", "DscP1", "DscPer", "hbNumer", "hbDenom", "hsNumer", "hsDenom"};
+
         //editText declarations==============================
-        baseText = findViewById(R.id.basePriceInp);
-        flatAddText = findViewById(R.id.flatPriceInp);
+        configs[0] = baseText = findViewById(R.id.basePriceInp);
+        configs[1] = flatAddText = findViewById(R.id.flatPriceInp);
 
-        celText = findViewById(R.id.celInp);
-        flatsText = findViewById(R.id.flatsInp);
-        linesText = findViewById(R.id.linesInp);
-        sketchText = findViewById(R.id.sketchInp);
-        tmgText = findViewById(R.id.tgmInp);
+        configs[2] = celText = findViewById(R.id.celInp);
+        configs[3] = flatsText = findViewById(R.id.flatsInp);
+        configs[4] = linesText = findViewById(R.id.linesInp);
+        configs[5] = sketchText = findViewById(R.id.sketchInp);
+        configs[6] = tmgText = findViewById(R.id.tgmInp);
 
-        dscP1Text = findViewById(R.id.dscP1Inp);
-        dcsPerText = findViewById(R.id.dscPerInp);
+        configs[7] = dscP1Text = findViewById(R.id.dscP1Inp);
+        configs[8] = dcsPerText = findViewById(R.id.dscPerInp);
 
-        hbNumerText = findViewById(R.id.hbNumer);
-        hbDenomText = findViewById(R.id.hbDenom);
+        configs[9] = hbNumerText = findViewById(R.id.hbNumer);
+        configs[10] = hbDenomText = findViewById(R.id.hbDenom);
 
-        hsNumerText = findViewById(R.id.hsNumer);
-        hsDenomText = findViewById(R.id.hsDenom);
+        configs[11] = hsNumerText = findViewById(R.id.hsNumer);
+        configs[12] = hsDenomText = findViewById(R.id.hsDenom);
 
         //activity declarations==============================
         back = findViewById(R.id.BackBtn);
@@ -95,6 +110,9 @@ public class ConfigMenu extends AppCompatActivity {
         applyBack.setOnClickListener(view -> applyBack());
 
         //TODO: declare onclick and onfocus for all the edittexts that clears. Also make them not chain to prevent breaking.
+        //TODO: Implement action.done for all fields that re-sets the stored values to a null value
+
+
     }
 
     public void checkPrefs(){
@@ -144,12 +162,86 @@ public class ConfigMenu extends AppCompatActivity {
         hsDenom = prefs.getInt("hsDenom", 2);
     }
 
-    public void applyConfig(){
-        //TODO: implement applying config
+    public double validDoubleInput(EditText checkText){
+        String check = checkText.getText().toString();
+
+        if(!"".equals(check) && !".".equals(check) && !"-".equals(check)) {
+            double price = (double)Math.round(100 * Double.parseDouble(check))/100.0;
+
+            //insert checks here if need be.
+
+            return price;
+        }
+
+        return Double.MIN_VALUE;
+    }
+
+    public int validIntInput(EditText checkText){
+        String check = checkText.getText().toString();
+
+        if(!"".equals(check) && !"-".equals(check)) {
+            int price = Integer.parseInt(check);
+
+            //insert checks here if need be.
+
+            return price;
+        }
+
+        return Integer.MIN_VALUE;
+    }
+
+    public boolean validCheck(double val){
+        if(val == Double.MIN_VALUE){return false;}
+        return true;
+    }
+
+    public boolean validCheck(int val){
+        if(val == Integer.MIN_VALUE){return false;}
+        return true;
+    }
+
+    public boolean applyConfig(){
+        SharedPreferences.Editor edit = prefs.edit();
+
+        for(int i = 0; i < configs.length; i++){
+            if(configs[i].getInputType() == (InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_CLASS_NUMBER)){
+                double tempDouble = validDoubleInput(configs[i]);;
+
+                if(validCheck(tempDouble)){edit.putLong(configNames[i], Double.doubleToRawLongBits(tempDouble));}
+                else{
+                    String error = "Invalid Value Entered For " + configNames[i];
+                    Toast.makeText(ConfigMenu.this, error , Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+            }else if(configs[i].getInputType() == InputType.TYPE_CLASS_NUMBER){
+                int tempInt = validIntInput(configs[i]);
+
+                if(validCheck(tempInt)){edit.putInt(configNames[i], tempInt);}
+                else{
+                    String error = "Invalid Value Entered For " + configNames[i];
+                    Toast.makeText(ConfigMenu.this, error , Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+
+        edit.commit();
+
+        return true;
+    }
+
+    //for future apply button
+    public void apply(){
+        if(!applyConfig()){return;}
+        loadPrefs();
+        updateFields();
     }
 
     public void applyBack(){
-        applyConfig();
+        //if it encounters an error it won't go back.
+        //TODO: Maybe make this force all values to be the originals again instead of stopping going back.
+        if(!applyConfig()){return;}
         onBackPressed();
     }
 
